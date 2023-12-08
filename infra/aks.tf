@@ -1,5 +1,5 @@
 resource "azurerm_kubernetes_cluster" "sample" {
-  name                = "cluster-${var.azure_suffix}"
+  name                = "cluster-${var.azure_suffix}" # name of cluster
   location            = azurerm_resource_group.aks.location
   resource_group_name = azurerm_resource_group.aks.name
   dns_prefix          = "dns-${var.azure_suffix}"
@@ -10,10 +10,10 @@ resource "azurerm_kubernetes_cluster" "sample" {
 
   default_node_pool {
     name                = "agentpool"
-    vm_size             = "Standard_B2s"
+    vm_size             = "Standard_DS2_v2"
     enable_auto_scaling = true
     min_count           = 1
-    max_count           = 2
+    max_count           = 8
   }
 
   network_profile {

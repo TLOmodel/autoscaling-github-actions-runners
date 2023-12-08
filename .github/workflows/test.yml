@@ -6,6 +6,27 @@ on:
 jobs:
   test:
     runs-on: self-hosted
+    strategy:
+      matrix:
+        file:
+          - tests/test_analysis.py
+          - tests/test_basic_sims.py
+          - tests/test_beddays.py
+          - tests/test_bitset.py
+          - tests/test_control_order_of_events.py
+          - tests/test_core.py
+          - tests/test_docs.py
+          - tests/test_dxmanager.py
+          - tests/test_enhanced_lifestyle.py
+          - tests/test_healthcareseeking.py
+          - tests/test_hiv_tb_scenarios.py
+          - tests/test_lm.py
+          - tests/test_logging.py
     steps:
-      - name: init
-        run: sleep 1000
+      - uses: actions/checkout@v4
+        with:
+          repository: 'UCL/TLOmodel'
+          lfs: false
+      - name: test
+        run: |
+          tox -v -e py311,report -- pytest --cov --cov-report=term-missing -vv "${{ matrix.file }}"

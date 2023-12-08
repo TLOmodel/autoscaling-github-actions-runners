@@ -1,4 +1,4 @@
 resource "azurerm_resource_group" "aks" {
   location = "uksouth"
-  name     = "rg-aks-${var.azure_suffix}"
+  name     = "tlo-aks-${var.azure_suffix}" # resource group name
 }

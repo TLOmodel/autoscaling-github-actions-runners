@@ -74,8 +74,9 @@ resource "local_file" "manifest" {
   filename = "manifest.yaml"
   content = templatefile("${path.module}/manifest.tmpl.yaml",
     {
-      namespace  = kubernetes_namespace.gha-ns.metadata[0].name
-      repository = var.gh_repository
+      namespace    = kubernetes_namespace.gha-ns.metadata[0].name
+      repository   = var.gh_repository
+      max_replicas = azurerm_kubernetes_cluster.sample.default_node_pool[0].max_count
     }
   )
 }
