@@ -10,7 +10,8 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: TLOmodel/actions-runner
+  # Note: the image name must be lowercase.
+  IMAGE_NAME: tlomodel/actions-runner
 
 jobs:
   build-and-push-image:
