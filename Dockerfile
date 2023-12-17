@@ -17,8 +17,10 @@ COPY move_repository.sh /etc/arc/hooks/job-started.d/move_repository.sh
 
 # Create destination directory for the repo
 RUN sudo mkdir -p /git && sudo chmod 777 /git
+# Clone repository
+RUN git clone --depth=1 https://github.com/UCL/TLOmodel /git/repository
 # Fetch a file with the latest commit of the repo, to invalidate the local
 # Docker cache when the repo is updated.
 ADD https://api.github.com/repos/UCL/TLOmodel/git/refs/heads/master version.json
-# Clone repository
-RUN git clone --depth=1 https://github.com/UCL/TLOmodel /git/repository
+# Update repository, if version changed
+RUN git -C /git/repository pull --depth=1
