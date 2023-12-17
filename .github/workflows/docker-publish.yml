@@ -1,0 +1,51 @@
+# Based on
+# <https://docs.github.com/en/actions/publishing-packages/publishing-docker-images#publishing-images-to-github-packages>.
+name: Publish Docker image
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Update it twice a week, on Sunday and Thursday.
+    - cron: 02 01 * * 0,4
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: TLOmodel/actions-runner
+
+jobs:
+  build-and-push-image:
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Workaround: https://github.com/docker/build-push-action/issues/461
+      - name: Setup Docker buildx
+        uses: docker/setup-buildx-action@v2
+
+      # Login against a Docker registry except on PR
+      # https://github.com/docker/login-action
+      - name: Log into registry ${{ env.REGISTRY }}
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Build and push Docker image with Buildx (don't push on PR)
+      # https://github.com/docker/build-push-action
+      - name: Build and push Docker image
+        id: build-and-push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ env.IMAGE_NAME }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
