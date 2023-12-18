@@ -6,7 +6,7 @@ metadata:
 spec:
   template:
     spec:
-      image: mosegiordano/arc-test:latest
+      image: ghcr.io/tlomodel/actions-runner:latest
       imagePullPolicy: Always
       # Options: https://github.com/actions/actions-runner-controller/blob/dcb64f0b9e889f4751bf257f2a37632ce10a3e10/docs/automatically-scaling-runners.md
       repository: ${repository}
