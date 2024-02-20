@@ -5,8 +5,8 @@ name: Publish Docker image
 on:
   workflow_dispatch:
   schedule:
-    # Update it twice a week, on Sunday and Thursday.
-    - cron: 02 01 * * 0,4
+    # Update it once a week, on Sunday
+    - cron: 02 01 * * 0
 
 env:
   REGISTRY: ghcr.io
