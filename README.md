@@ -64,7 +64,7 @@ kubectl logs <CONTROLLER_NAME> -n <CONTROLLER_NAMESPACE>
 ```
 
 where `<CONTROLLER_NAME>` and `<CONTROLLER_NAMESPACE>` are the name and
-namespace you found with `kubectl get pods -A` above.
+namespace you found with `kubectl get pods -A` above (the namespace is what you set as `kubernetes_namespace` in [`infra/gha.tf`](./infra/gha.tf)).
 If you feel fancy you can try a single command like
 ```
 kubectl logs $(kubectl get -n actions-runner-system pod | grep -v 'NAME'|cut -d' ' -f1) -n actions-runner-system
