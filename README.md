@@ -34,6 +34,14 @@ instance.  You can do that with
 make destroy
 ```
 
+### Customisation
+
+You may want to customise:
+
+* VM size (`vm_size`), minum number of VMs (`min_count`), maximum number of VMs (`max_count`) in [`infra/aks.tf`](./infra/aks.tf)
+* Azure resource group (`azurerm_resource_group`) in [`infra/main.tf`](./infra/main.tf)
+* GHA runners labels (`labels`), resource limits (`resources`/`limits`), scale up/down strategy and number of replicas (`spec`) in [`infra/manifest.tmpl.yaml`](./infra/manifest.tmpl.yaml)
+
 ## Troubleshooting
 
 After deployment, you can list the available pods with
