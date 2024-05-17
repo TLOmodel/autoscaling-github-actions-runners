@@ -34,6 +34,22 @@ instance.  You can do that with
 make destroy
 ```
 
+> [!NOTE]
+> The `make deploy` command may end with a scary-looking message like
+> ```
+> Invalid attribute in provider configuration
+>
+>   with provider["registry.terraform.io/hashicorp/kubernetes"],
+>   on terraform.tf line 32, in provider "kubernetes":
+>   32: provider "kubernetes" {
+>
+> 'config_path' refers to an invalid path: "./../kubeconfig.yaml": stat ./../kubeconfig.yaml: no such file or directory
+>
+>
+> Apply complete! Resources: 12 added, 0 changed, 0 destroyed.
+> ```
+> Ignore the `Invalid attribute in provider configuration` message, that's expected, the relevant part is "Apply complete!".
+
 ### Customisation
 
 You may want to customise:
