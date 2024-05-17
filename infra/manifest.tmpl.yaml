@@ -11,7 +11,7 @@ spec:
       # Options: https://github.com/actions/actions-runner-controller/blob/dcb64f0b9e889f4751bf257f2a37632ce10a3e10/docs/automatically-scaling-runners.md
       repository: ${repository}
       labels:
-        - test
+        - profiling
       dockerEnabled: false
       securityContext:
         seLinuxOptions:
