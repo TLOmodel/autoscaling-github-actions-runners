@@ -60,6 +60,8 @@ You may want to customise:
 
 ## Troubleshooting
 
+### Get list of pods
+
 After deployment, you can list the available pods with
 
 ```sh
@@ -73,6 +75,8 @@ You should expect to have a controller, with name which includes `controller` in
 it.  While a job is running, you should expect the runners among the pods, in
 the `runners` namespace.
 
+### Access the logs
+
 If something isn't working, you can check the log of the controller with the command
 
 ```sh
@@ -85,6 +89,8 @@ If you feel fancy you can try a single command like
 ```
 kubectl logs $(kubectl get -n actions-runner-system pod | grep -v 'NAME'|cut -d' ' -f1) -n actions-runner-system
 ```
+
+### Creating new Kubernetes service after having destroyed previous one on Azure portal
 
 When you run `make deploy` to deploy again your Kubernetes service, it will try
 first to delete the existing Kubernetes service, but if you deleted it via the Azure
@@ -107,6 +113,8 @@ git clean -fxd infra/ kubeconfig.yaml
 ```
 Make sure not to delete your `.env` file!
 
+### Check the status of a pod
+
 To check the status of a pod you can use the command
 ```
 kubectl describe pod <POD_NAME> -n <NAMESPACE>
@@ -115,17 +123,14 @@ where `<POD_NAME>` is the name of pod and `<NAMESPACE>` is its namespace.
 For example this can be useful to check the status of a runner that you can find
 with `kubectl get runners -A`.
 
-
-***Note***: there's a configuration about the [IP addresses allowed to use the
-API
-server](https://learn.microsoft.com/en-us/azure/aks/api-server-authorized-ip-ranges),
-which is set when you run `make deploy`.  If you have an IP address different
-from what you had when you deployed the service, then you may have errors like
-```
-% kubectl get runners -A
-E1213 16:27:17.329486   42971 memcache.go:265] couldn't get current server API group list: Get "https://dns-k8s-test-82y64n61.hcp.uksouth.azmk8s.io:443/api?timeout=32s": dial tcp 20.108.89.37:443: i/o timeout
-```
-To fix this, you will have to either re-run a partial deploy to change the IP
-address (but I don't know how to do that at the moment), or go to the Networking
-settings of your Kubernetes services in Azure portal and change the allowed IP
-ranges (it can be a comma-separated list of IP or ranges).
+> [!NOTE]
+> there's a configuration about the [IP addresses allowed to use the API server](https://learn.microsoft.com/en-us/azure/aks/api-server-authorized-ip-ranges), which is set when you run `make deploy`.
+> If you have an IP address different from what you had when you deployed the service, then you may have errors like
+> ```
+> % kubectl get runners -A
+> E1213 16:27:17.329486   42971 memcache.go:265] couldn't get current server API group list: Get "https://dns-k8s-test-82y64n61.hcp.uksouth.azmk8s.io:443/api?timeout=32s": dial tcp 20.108.89.37:443: i/o timeout
+> ```
+> To fix this, you will have to either re-run a partial deploy to change the IP
+> address (but I don't know how to do that at the moment), or go to the Networking
+> settings of your Kubernetes services in Azure portal and change the allowed IP
+> ranges (it can be a comma-separated list of IP or ranges).
