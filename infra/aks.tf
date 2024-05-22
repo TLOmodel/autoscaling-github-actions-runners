@@ -10,7 +10,7 @@ resource "azurerm_kubernetes_cluster" "sample" {
 
   default_node_pool {
     name                = "agentpool"
-    vm_size             = "Standard_DS2_v2"
+    vm_size             = "Standard_E2a_v4"
     enable_auto_scaling = true
     min_count           = 1
     max_count           = 8

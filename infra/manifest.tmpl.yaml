@@ -19,13 +19,14 @@ spec:
           role: "system_r"
           type: "super_t"
           user: "system_u"
+      # See https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
       resources:
         limits:
-          cpu: "1"
-          memory: "4Gi"
+          cpu: "2"
+          memory: "32Gi"
         requests:
           cpu: "1"
-          memory: "4Gi"
+          memory: "8Gi"
       env:
         - name: RUNNER_ALLOW_RUNASROOT
           value: "0"
