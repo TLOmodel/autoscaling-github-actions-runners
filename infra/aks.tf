@@ -1,3 +1,4 @@
+# See https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kubernetes_cluster
 resource "azurerm_kubernetes_cluster" "sample" {
   name                = "cluster-${var.azure_suffix}" # name of cluster
   location            = azurerm_resource_group.aks.location

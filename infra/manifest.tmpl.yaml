@@ -19,13 +19,16 @@ spec:
           role: "system_r"
           type: "super_t"
           user: "system_u"
-      # See https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+      # See <https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/>.
       resources:
         limits:
           cpu: "2"
           memory: "32Gi"
         requests:
           cpu: "1"
+          # Note that you can't request the maximum total memory of a node, because AKS applies
+          # some formula to limit the total amount of memory that can be allocated:
+          # <https://learn.microsoft.com/en-us/azure/aks/concepts-clusters-workloads#memory>.
           memory: "12Gi"
       env:
         - name: RUNNER_ALLOW_RUNASROOT
