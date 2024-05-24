@@ -26,10 +26,11 @@ spec:
           memory: "32Gi"
         requests:
           cpu: "1"
-          # Note that you can't request the maximum total memory of a node, because AKS applies
-          # some formula to limit the total amount of memory that can be allocated:
+          # This is only the minimum requested amount of memory.  Also, note that you can't
+          # request the maximum total memory of a node, because AKS applies some formula to
+          # limit the total amount of memory that can be allocated:
           # <https://learn.microsoft.com/en-us/azure/aks/concepts-clusters-workloads#memory>.
-          memory: "12Gi"
+          memory: "8Gi"
       env:
         - name: RUNNER_ALLOW_RUNASROOT
           value: "0"

@@ -4,6 +4,9 @@ resource "azurerm_kubernetes_cluster" "sample" {
   location            = azurerm_resource_group.aks.location
   resource_group_name = azurerm_resource_group.aks.name
   dns_prefix          = "dns-${var.azure_suffix}"
+  # For long-term deployments, this ensure we're always running a supported version of
+  # Kubernentes.
+  automatic_channel_upgrade = "stable"
 
   identity {
     type = "SystemAssigned"
@@ -15,6 +18,13 @@ resource "azurerm_kubernetes_cluster" "sample" {
     enable_auto_scaling = true
     min_count           = 1
     max_count           = 8
+    # With Kubernetes 1.29+, the maximum number of pods affects the maximum amount of memory
+    # actually allocatable on a node:
+    # <https://learn.microsoft.com/en-us/azure/aks/concepts-clusters-workloads#memory>.
+    # Since we don't need a large number of pods (default is 110), we can limit them in
+    # exchange of more memory.
+    max_pods                    = 50
+    temporary_name_for_rotation = "temppoolname"
   }
 
   network_profile {
