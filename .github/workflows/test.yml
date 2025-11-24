@@ -23,7 +23,7 @@ jobs:
           - tests/test_lm.py
           - tests/test_logging.py
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           repository: 'UCL/TLOmodel'
           lfs: false
